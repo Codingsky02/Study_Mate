@@ -1,0 +1,908 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="StudyMate AI - Personalized AI-powered learning for students."
+    >
+
+    <title>StudyMate AI — Study Smarter</title>
+
+    <!-- Bootstrap CSS -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Bootstrap Icons -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+        rel="stylesheet"
+    >
+
+    <!-- Google Font -->
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Your CSS -->
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header class="navbar-section">
+
+    <nav class="navbar-container">
+
+        <a
+            href="/"
+            class="brand"
+        >
+
+            <span class="brand-icon">
+                <i class="bi bi-mortarboard-fill"></i>
+            </span>
+
+            <span>
+                StudyMate <strong>AI</strong>
+            </span>
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="#features">
+                Features
+            </a>
+
+            <a href="#how-it-works">
+                How It Works
+            </a>
+
+            <a href="#usp">
+                Why StudyMate
+            </a>
+
+        </div>
+
+
+        <div class="nav-actions">
+
+            <a
+                href="/login"
+                class="btn-login"
+            >
+                Log In
+            </a>
+
+            <a
+                href="/register"
+                class="btn-primary"
+            >
+                Get Started
+            </a>
+
+        </div>
+
+    </nav>
+
+</header>
+
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<main>
+
+
+<section class="hero-section">
+
+    <div class="hero-container">
+
+
+        <div class="hero-content">
+
+            <div class="hero-badge">
+
+                <i class="bi bi-stars"></i>
+
+                AI-Powered Learning
+
+            </div>
+
+
+            <h1>
+
+                Study Smarter.
+
+                <br>
+
+                Learn Better.
+
+                <br>
+
+                <span>Improve Faster.</span>
+
+            </h1>
+
+
+            <p class="hero-description">
+
+                StudyMate AI helps students understand concepts,
+                test their knowledge, organize their studies,
+                and improve based on their learning performance.
+
+            </p>
+
+
+            <div class="hero-buttons">
+
+                <a
+                    href="/register"
+                    class="btn-primary btn-large"
+                >
+
+                    Start Learning
+
+                    <i class="bi bi-arrow-right"></i>
+
+                </a>
+
+
+                <a
+                    href="#how-it-works"
+                    class="btn-secondary"
+                >
+
+                    See How It Works
+
+                </a>
+
+            </div>
+
+
+            <div class="hero-trust">
+
+                <span>
+                    <i class="bi bi-check-circle-fill"></i>
+                    Personalized
+                </span>
+
+                <span>
+                    <i class="bi bi-check-circle-fill"></i>
+                    AI Powered
+                </span>
+
+                <span>
+                    <i class="bi bi-check-circle-fill"></i>
+                    Student Focused
+                </span>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- HERO VISUAL -->
+
+        <div class="hero-visual">
+
+            <div class="study-card">
+
+                <div class="study-card-header">
+
+                    <div>
+
+                        <small>
+                            YOUR STUDY PLAN
+                        </small>
+
+                        <h3>
+                            Today's Focus
+                        </h3>
+
+                    </div>
+
+                    <div class="card-icon">
+                        <i class="bi bi-calendar-check"></i>
+                    </div>
+
+                </div>
+
+
+                <div class="study-item">
+
+                    <div class="study-item-icon">
+                        <i class="bi bi-calculator"></i>
+                    </div>
+
+                    <div class="study-item-content">
+
+                        <strong>
+                            Mathematics
+                        </strong>
+
+                        <span>
+                            Algebra Revision
+                        </span>
+
+                    </div>
+
+                    <span class="study-time">
+                        30 min
+                    </span>
+
+                </div>
+
+
+                <div class="study-item">
+
+                    <div class="study-item-icon science">
+                        <i class="bi bi-lightbulb"></i>
+                    </div>
+
+                    <div class="study-item-content">
+
+                        <strong>
+                            Science
+                        </strong>
+
+                        <span>
+                            Practice Quiz
+                        </span>
+
+                    </div>
+
+                    <span class="study-time">
+                        20 min
+                    </span>
+
+                </div>
+
+
+                <div class="study-item">
+
+                    <div class="study-item-icon english">
+                        <i class="bi bi-book"></i>
+                    </div>
+
+                    <div class="study-item-content">
+
+                        <strong>
+                            English
+                        </strong>
+
+                        <span>
+                            Grammar Practice
+                        </span>
+
+                    </div>
+
+                    <span class="study-time">
+                        20 min
+                    </span>
+
+                </div>
+
+
+                <div class="ai-recommendation">
+
+                    <div class="ai-recommendation-title">
+
+                        <i class="bi bi-stars"></i>
+
+                        AI Recommendation
+
+                    </div>
+
+                    <p>
+
+                        Spend more time on Algebra
+                        based on your recent performance.
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FEATURES
+===================================================== -->
+
+<section
+    class="section"
+    id="features"
+>
+
+    <div class="section-container">
+
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                FEATURES
+            </span>
+
+            <h2>
+                Everything You Need To Study Better
+            </h2>
+
+            <p>
+                StudyMate AI brings your essential study
+                tools together in one simple platform.
+            </p>
+
+        </div>
+
+
+        <div class="feature-grid">
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon">
+                    <i class="bi bi-robot"></i>
+                </div>
+
+                <h3>
+                    AI Study Assistant
+                </h3>
+
+                <p>
+                    Ask questions and get clear,
+                    easy-to-understand explanations
+                    whenever you need help.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon purple">
+                    <i class="bi bi-patch-question"></i>
+                </div>
+
+                <h3>
+                    AI Quiz Generator
+                </h3>
+
+                <p>
+                    Create practice questions from
+                    the topics you are studying and
+                    test your understanding.
+                </p>
+
+            </article>
+
+
+            <article class="feature-card">
+
+                <div class="feature-icon green">
+                    <i class="bi bi-calendar-check"></i>
+                </div>
+
+                <h3>
+                    Study Planner
+                </h3>
+
+                <p>
+                    Organize your subjects, topics,
+                    study sessions, and daily goals
+                    in one place.
+                </p>
+
+            </article>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     USP
+===================================================== -->
+
+<section
+    class="section usp-section"
+    id="usp"
+>
+
+    <div class="section-container">
+
+        <div class="usp-container">
+
+
+            <div class="usp-content">
+
+                <span class="section-label">
+                    WHY STUDYMATE AI
+                </span>
+
+                <h2>
+                    Your Performance
+                    <span>Shapes Your Learning.</span>
+                </h2>
+
+                <p>
+
+                    StudyMate AI doesn't just give you
+                    information. It helps you understand
+                    where you need to improve and what
+                    you should focus on next.
+
+                </p>
+
+
+                <div class="usp-points">
+
+                    <div class="usp-point">
+
+                        <div class="usp-point-icon">
+                            <i class="bi bi-bar-chart"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Understand Your Performance
+                            </strong>
+
+                            <p>
+                                Track your learning progress
+                                and identify weaker areas.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="usp-point">
+
+                        <div class="usp-point-icon">
+                            <i class="bi bi-bullseye"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Focus On What Matters
+                            </strong>
+
+                            <p>
+                                Spend your study time on topics
+                                that need more attention.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="usp-point">
+
+                        <div class="usp-point-icon">
+                            <i class="bi bi-arrow-repeat"></i>
+                        </div>
+
+                        <div>
+
+                            <strong>
+                                Keep Improving
+                            </strong>
+
+                            <p>
+                                Learn, test yourself, analyze
+                                and improve continuously.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div class="usp-visual">
+
+                <div class="performance-card">
+
+                    <div class="performance-card-top">
+
+                        <span>
+                            Learning Performance
+                        </span>
+
+                        <i class="bi bi-graph-up-arrow"></i>
+
+                    </div>
+
+
+                    <div class="performance-score">
+                        78%
+                    </div>
+
+                    <div class="performance-label">
+                        Overall Progress
+                    </div>
+
+
+                    <div class="progress-container">
+
+                        <div class="progress-bar">
+                            <div class="progress-fill"></div>
+                        </div>
+
+                    </div>
+
+
+                    <div class="performance-subjects">
+
+                        <div>
+
+                            <span>
+                                Mathematics
+                            </span>
+
+                            <strong>
+                                62%
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                Science
+                            </span>
+
+                            <strong>
+                                84%
+                            </strong>
+
+                        </div>
+
+                        <div>
+
+                            <span>
+                                English
+                            </span>
+
+                            <strong>
+                                88%
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="focus-message">
+
+                        <i class="bi bi-stars"></i>
+
+                        <div>
+
+                            <strong>
+                                Suggested Focus
+                            </strong>
+
+                            <p>
+                                Mathematics — Algebra
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     HOW IT WORKS
+===================================================== -->
+
+<section
+    class="section"
+    id="how-it-works"
+>
+
+    <div class="section-container">
+
+
+        <div class="section-heading">
+
+            <span class="section-label">
+                HOW IT WORKS
+            </span>
+
+            <h2>
+                A Simple Learning Cycle
+            </h2>
+
+            <p>
+                StudyMate AI keeps the process simple
+                so you can focus on learning.
+            </p>
+
+        </div>
+
+
+        <div class="steps-grid">
+
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    01
+                </div>
+
+                <div class="step-icon">
+                    <i class="bi bi-book"></i>
+                </div>
+
+                <h3>
+                    Learn
+                </h3>
+
+                <p>
+                    Study your subjects and ask the
+                    AI assistant whenever you get stuck.
+                </p>
+
+            </div>
+
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    02
+                </div>
+
+                <div class="step-icon">
+                    <i class="bi bi-patch-question"></i>
+                </div>
+
+                <h3>
+                    Test
+                </h3>
+
+                <p>
+                    Take quizzes to check whether
+                    you actually understand the topic.
+                </p>
+
+            </div>
+
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    03
+                </div>
+
+                <div class="step-icon">
+                    <i class="bi bi-bar-chart"></i>
+                </div>
+
+                <h3>
+                    Analyze
+                </h3>
+
+                <p>
+                    Look at your results and identify
+                    topics where you need more practice.
+                </p>
+
+            </div>
+
+
+            <div class="step-card">
+
+                <div class="step-number">
+                    04
+                </div>
+
+                <div class="step-icon">
+                    <i class="bi bi-bullseye"></i>
+                </div>
+
+                <h3>
+                    Improve
+                </h3>
+
+                <p>
+                    Focus on your weak areas and
+                    continue the learning cycle.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+
+<!-- =====================================================
+     FINAL CTA
+===================================================== -->
+
+<section class="cta-section">
+
+    <div class="cta-container">
+
+        <span class="section-label light">
+            START YOUR JOURNEY
+        </span>
+
+        <h2>
+            Stop Studying Harder.
+            Start Studying Smarter.
+        </h2>
+
+        <p>
+            Make your study time more focused,
+            organized, and effective with StudyMate AI.
+        </p>
+
+        <a
+            href="/register"
+            class="cta-button"
+        >
+
+            Get Started Free
+
+            <i class="bi bi-arrow-right"></i>
+
+        </a>
+
+    </div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+
+        <div class="footer-brand">
+
+            <a
+                href="/"
+                class="brand"
+            >
+
+                <span class="brand-icon">
+                    <i class="bi bi-mortarboard-fill"></i>
+                </span>
+
+                <span>
+                    StudyMate <strong>AI</strong>
+                </span>
+
+            </a>
+
+            <p>
+                Personalized AI-powered learning
+                for students.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <a href="#features">
+                Features
+            </a>
+
+            <a href="#how-it-works">
+                How It Works
+            </a>
+
+            <a href="#usp">
+                Why StudyMate
+            </a>
+
+            <a href="/login">
+                Login
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+            © 2026 StudyMate AI. All rights reserved.
+        </p>
+
+        <p>
+            Built for smarter learning.
+        </p>
+
+    </div>
+
+</footer>
+
+
+</body>
+
+</html>
