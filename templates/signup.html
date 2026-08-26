@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sign Up — Study_Mate</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body class="auth-page">
+
+    <header class="auth-header">
+
+        <a href="/" class="brand">
+            <span class="brand-mark">S</span>
+
+            <span>
+                Study<span>_Mate</span>
+            </span>
+        </a>
+
+        <a href="/" class="back-home">
+            ← Back to home
+        </a>
+
+    </header>
+
+
+    <main class="auth-container">
+
+        <!-- SIGNUP FORM -->
+
+        <section class="auth-card signup-card">
+
+            <div class="auth-intro">
+
+                <div class="auth-badge">
+                    <span>✦</span>
+                    CREATE YOUR ACCOUNT
+                </div>
+
+                <h1>
+                    Start your
+                    <span>learning journey.</span>
+                </h1>
+
+                <p>
+                    Tell us a little about yourself so Study_Mate
+                    can personalize your learning experience.
+                </p>
+
+            </div>
+
+
+            <form
+                class="auth-form"
+                action="/signup"
+                method="POST"
+            >
+
+                <!-- FULL NAME -->
+
+                <div class="auth-form-group">
+
+                    <label for="name">
+                        Full name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        class="auth-input"
+                        placeholder="Enter your full name"
+                        autocomplete="name"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- EMAIL -->
+
+                <div class="auth-form-group">
+
+                    <label for="email">
+                        Email address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="auth-input"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- PASSWORD -->
+
+                <div class="auth-form-group">
+
+                    <label for="password">
+                        Password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="auth-input"
+                            placeholder="Create a password"
+                            minlength="8"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword('password', this)"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                    <span class="input-hint">
+                        Use at least 8 characters.
+                    </span>
+
+                </div>
+
+
+                <!-- CONFIRM PASSWORD -->
+
+                <div class="auth-form-group">
+
+                    <label for="confirm-password">
+                        Confirm password
+                    </label>
+
+                    <div class="password-wrapper">
+
+                        <input
+                            type="password"
+                            id="confirm-password"
+                            name="confirm_password"
+                            class="auth-input"
+                            placeholder="Enter your password again"
+                            minlength="8"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="password-toggle"
+                            onclick="togglePassword(
+                                'confirm-password',
+                                this
+                            )"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- CLASS + SUBJECT -->
+
+                <div class="auth-row">
+
+                    <!-- CLASS -->
+
+                    <div class="auth-form-group">
+
+                        <label for="student-class">
+                            Class
+                        </label>
+
+                        <select
+                            id="student-class"
+                            name="student_class"
+                            class="auth-input auth-select"
+                            required
+                        >
+
+                            <option value="" disabled selected>
+                                Select class
+                            </option>
+
+                            <option value="6">Class 6</option>
+                            <option value="7">Class 7</option>
+                            <option value="8">Class 8</option>
+                            <option value="9">Class 9</option>
+                            <option value="10">Class 10</option>
+                            <option value="11">Class 11</option>
+                            <option value="12">Class 12</option>
+
+                        </select>
+
+                    </div>
+
+
+                    <!-- TARGET SUBJECT -->
+
+                    <div class="auth-form-group">
+
+                        <label for="target-subject">
+                            Targeted subject
+                        </label>
+
+                        <select
+                            id="target-subject"
+                            name="target_subject"
+                            class="auth-input auth-select"
+                            required
+                        >
+
+                            <option value="" disabled selected>
+                                Select subject
+                            </option>
+
+                            <option value="mathematics">
+                                Mathematics
+                            </option>
+
+                            <option value="science">
+                                Science
+                            </option>
+
+                            <option value="english">
+                                English
+                            </option>
+
+                            <option value="social-science">
+                                Social Science
+                            </option>
+
+                            <option value="computer-science">
+                                Computer Science
+                            </option>
+
+                            <option value="other">
+                                Other
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PREVIOUS SCORE -->
+
+                <div class="auth-form-group">
+
+                    <label for="previous-score">
+                        Previous score
+                    </label>
+
+                    <div class="marks-input">
+
+                        <input
+                            type="number"
+                            id="previous-score"
+                            name="previous_score"
+                            class="auth-input"
+                            placeholder="Enter your previous percentage"
+                            min="0"
+                            max="100"
+                            step="0.01"
+                            required
+                        >
+
+                        <span>%</span>
+
+                    </div>
+
+                    <span class="input-hint">
+                        Your previous academic percentage.
+                    </span>
+
+                </div>
+
+
+                <!-- TERMS -->
+
+                <label class="terms-checkbox">
+
+                    <input
+                        type="checkbox"
+                        name="terms"
+                        required
+                    >
+
+                    <span>
+                        I agree to the
+                        <a href="/terms-and-conditions">Terms of Service</a>
+                        and
+                        <a href="/privacy-policy">Privacy Policy</a>.
+                    </span>
+
+                </label>
+
+
+                <!-- BUTTON -->
+
+                <button
+                    type="submit"
+                    class="auth-submit"
+                >
+                    Create Account
+                    <span>→</span>
+                </button>
+
+            </form>
+
+
+            <p class="auth-footer">
+
+                Already have an account?
+
+                <a href="/login">
+                    Sign In
+                </a>
+
+            </p>
+
+        </section>
+
+
+        <!-- RIGHT SIDE -->
+
+        <aside class="auth-side">
+
+            <div class="side-label">
+                YOUR AI STUDY LOOP
+            </div>
+
+
+            <div class="auth-feature">
+
+                <div class="feature-number">
+                    01
+                </div>
+
+                <div>
+
+                    <span class="feature-icon">
+                        ✦
+                    </span>
+
+                    <h2>
+                        Understand
+                    </h2>
+
+                    <p>
+                        Get concepts explained according
+                        to your learning level.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="side-line"></div>
+
+
+            <div class="auth-feature">
+
+                <div class="feature-number">
+                    02
+                </div>
+
+                <div>
+
+                    <span class="feature-icon">
+                        ✓
+                    </span>
+
+                    <h2>
+                        Test
+                    </h2>
+
+                    <p>
+                        Practice with quizzes based on
+                        what you're learning.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="side-line"></div>
+
+
+            <div class="auth-feature">
+
+                <div class="feature-number">
+                    03
+                </div>
+
+                <div>
+
+                    <span class="feature-icon">
+                        ◷
+                    </span>
+
+                    <h2>
+                        Plan
+                    </h2>
+
+                    <p>
+                        Turn your goals into a structured
+                        study schedule.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="auth-tagline">
+
+                <span>
+                    Learn → Test → Plan
+                </span>
+
+                <strong>
+                    Your personal AI study loop.
+                </strong>
+
+            </div>
+
+        </aside>
+
+    </main>
+
+
+    <script>
+
+        function togglePassword(id, button) {
+
+            const input =
+                document.getElementById(id);
+
+            if (input.type === "password") {
+
+                input.type = "text";
+                button.textContent = "Hide";
+
+            } else {
+
+                input.type = "password";
+                button.textContent = "Show";
+
+            }
+
+        }
+
+
+        document
+            .querySelector("form")
+            .addEventListener("submit", function(event) {
+
+                const password =
+                    document.getElementById("password").value;
+
+                const confirmPassword =
+                    document.getElementById(
+                        "confirm-password"
+                    ).value;
+
+                if (password !== confirmPassword) {
+
+                    event.preventDefault();
+
+                    alert("Passwords do not match.");
+
+                }
+
+            });
+
+    </script>
+
+</body>
+</html>

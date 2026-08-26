@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sign In — Study_Mate</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body class="login-page">
+
+    <!-- Header -->
+    <header class="auth-header">
+
+        <a href="/" class="brand">
+            <span class="brand-mark">S</span>
+
+            <span>
+                Study<span>_Mate</span>
+            </span>
+        </a>
+
+        <a href="/" class="back-home">
+            ← Back to home
+        </a>
+
+    </header>
+
+
+    <!-- Main -->
+    <main class="login-container">
+
+        <!-- Login Card -->
+        <section class="login-card">
+
+            <div class="login-intro">
+
+                <div class="auth-badge">
+                    <span>✦</span>
+                    WELCOME BACK
+                </div>
+
+                <h1>
+                    Continue your
+                    <span>learning journey.</span>
+                </h1>
+
+                <p>
+                    Sign in to continue learning,
+                    practicing, and planning with Study_Mate.
+                </p>
+
+            </div>
+
+
+            <!-- Login Form -->
+            <form
+                class="login-form"
+                action="/login"
+                method="POST"
+            >
+
+                <!-- Email -->
+                <div class="login-form-group">
+
+                    <label for="email">
+                        Email address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        class="login-input"
+                        placeholder="you@example.com"
+                        autocomplete="email"
+                        required
+                    >
+
+                </div>
+
+
+                <!-- Password -->
+                <div class="login-form-group">
+
+                    <div class="login-label-row">
+
+                        <label for="password">
+                            Password
+                        </label>
+
+                        <a href="/forgot-password" class="forgot-password">
+                            Forgot password?
+                        </a>
+
+                    </div>
+
+                    <div class="login-password-wrapper">
+
+                        <input
+                            type="password"
+                            id="password"
+                            name="password"
+                            class="login-input"
+                            placeholder="Enter your password"
+                            autocomplete="current-password"
+                            required
+                        >
+
+                        <button
+                            type="button"
+                            class="login-password-toggle"
+                            onclick="toggleLoginPassword()"
+                        >
+                            Show
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Remember -->
+                <label class="remember-me">
+
+                    <input
+                        type="checkbox"
+                        name="remember"
+                    >
+
+                    <span>
+                        Keep me signed in
+                    </span>
+
+                </label>
+
+
+                <!-- Submit -->
+                <button
+                    type="submit"
+                    class="login-submit"
+                >
+                    Sign In
+                    <span>→</span>
+                </button>
+
+            </form>
+
+
+            <!-- Divider -->
+            <div class="login-divider">
+                <span>NEW TO STUDY_MATE?</span>
+            </div>
+
+
+            <!-- Signup -->
+            <a
+                href="/signup"
+                class="create-account-button"
+            >
+                Create an account
+            </a>
+
+
+            <p class="login-footer">
+                Your personalized learning loop starts here.
+            </p>
+
+        </section>
+
+
+        <!-- Right Content -->
+        <aside class="login-side">
+
+            <div class="side-label">
+                STUDY_MATE
+            </div>
+
+
+            <h2>
+                Learn with a system,
+                <span>not just an app.</span>
+            </h2>
+
+            <p class="login-side-description">
+                Study_Mate connects understanding,
+                practice, and planning into one
+                continuous learning loop.
+            </p>
+
+
+            <!-- Loop -->
+            <div class="login-loop">
+
+                <div class="login-loop-item">
+
+                    <div class="login-loop-icon">
+                        ✦
+                    </div>
+
+                    <div>
+                        <strong>Understand</strong>
+
+                        <span>
+                            AI-powered explanations
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="login-loop-arrow">
+                    ↓
+                </div>
+
+
+                <div class="login-loop-item">
+
+                    <div class="login-loop-icon">
+                        ✓
+                    </div>
+
+                    <div>
+                        <strong>Test</strong>
+
+                        <span>
+                            Personalized AI quizzes
+                        </span>
+                    </div>
+
+                </div>
+
+
+                <div class="login-loop-arrow">
+                    ↓
+                </div>
+
+
+                <div class="login-loop-item">
+
+                    <div class="login-loop-icon">
+                        ◷
+                    </div>
+
+                    <div>
+                        <strong>Plan</strong>
+
+                        <span>
+                            Organized study schedules
+                        </span>
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="login-side-bottom">
+                <span>LEARN → TEST → PLAN</span>
+            </div>
+
+        </aside>
+
+    </main>
+
+
+    <script>
+
+        function toggleLoginPassword() {
+
+            const password =
+                document.getElementById("password");
+
+            const button =
+                document.querySelector(
+                    ".login-password-toggle"
+                );
+
+            if (password.type === "password") {
+
+                password.type = "text";
+                button.textContent = "Hide";
+
+            } else {
+
+                password.type = "password";
+                button.textContent = "Show";
+
+            }
+
+        }
+
+    </script>
+
+</body>
+
+</html>
