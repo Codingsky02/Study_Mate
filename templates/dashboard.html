@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Dashboard — Study_Mate</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+
+<body class="dashboard-page">
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="dashboard-sidebar">
+
+        <!-- Logo -->
+
+        <a href="/" class="dashboard-brand">
+
+            <span class="dashboard-brand-mark">
+                S
+            </span>
+
+            <span>
+                Study<span>_Mate</span>
+            </span>
+
+        </a>
+
+
+        <!-- Navigation -->
+
+        <nav class="dashboard-nav">
+
+            <div class="dashboard-nav-label">
+                MAIN
+            </div>
+
+            <a href="/dashboard" class="dashboard-nav-item active">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="/explain" class="dashboard-nav-item">
+                <span class="nav-icon">✦</span>
+                Explain
+            </a>
+
+            <a href="/quiz" class="dashboard-nav-item">
+                <span class="nav-icon">✓</span>
+                Quiz
+            </a>
+
+            <a href="/schedule" class="dashboard-nav-item">
+                <span class="nav-icon">◷</span>
+                Schedule
+            </a>
+
+
+            <div class="dashboard-nav-label ai-label">
+                AI
+            </div>
+
+            <a href="/explain" class="dashboard-nav-item">
+                <span class="nav-icon">✦</span>
+                AI Explanation
+            </a>
+
+            <a href="/quiz" class="dashboard-nav-item">
+                <span class="nav-icon">✎</span>
+                AI Quiz
+            </a>
+
+
+            <div class="dashboard-nav-label account-label">
+                ACCOUNT
+            </div>
+
+            <a href="/settings" class="dashboard-nav-item">
+                <span class="nav-icon">⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+
+        <!-- User -->
+
+        <div class="sidebar-user">
+
+            <div class="sidebar-avatar">
+                {{ user.name[0]|upper if user.name else "U" }}
+            </div>
+
+            <div class="sidebar-user-info">
+
+                <strong>
+                    {{ user.name }}
+                </strong>
+
+                <span>
+                    {{ user.email }}
+                </span>
+
+            </div>
+
+            <a
+                href="/logout"
+                class="logout-button"
+                title="Logout"
+            >
+                ↪
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="dashboard-main">
+
+        <!-- Header -->
+
+        <header class="dashboard-header">
+
+            <div>
+
+                <div class="dashboard-eyebrow">
+                    STUDY_MATE / DASHBOARD
+                </div>
+
+                <h1>
+                    Welcome back,
+                    <span>{{ user.name }}</span> 👋
+                </h1>
+
+                <p>
+                    Continue learning at your own pace.
+                </p>
+
+            </div>
+
+            <div class="dashboard-header-actions">
+
+                <a
+                    href="/profile"
+                    class="header-avatar"
+                    title="Profile"
+                >
+                    {{ user.name[0]|upper if user.name else "U" }}
+                </a>
+
+            </div>
+
+        </header>
+
+
+        <!-- =================================================
+             STUDENT PROFILE CARD
+             ================================================= -->
+
+        <section class="student-overview">
+
+            <div class="overview-main">
+
+                <div class="overview-icon">
+                    ✦
+                </div>
+
+                <div>
+
+                    <span class="overview-label">
+                        YOUR LEARNING FOCUS
+                    </span>
+
+                    <h2>
+                        {{ user.Targeted_Subject or "No subject selected" }}
+                    </h2>
+
+                    <p>
+                        Class:
+                        <strong>
+                            {{ user.Class or "Not provided" }}
+                        </strong>
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <div class="overview-score">
+
+                <span>
+                    PREVIOUS SCORE
+                </span>
+
+                <strong>
+                    {% if user.Previous_Score %}
+                        {{ user.Previous_Score }}
+                    {% else %}
+                        —
+                    {% endif %}
+                </strong>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             CORE FEATURES
+             ================================================= -->
+
+        <section class="feature-grid">
+
+            <!-- Explain -->
+
+            <a href="/explain" class="feature-card ai-feature">
+
+                <div class="feature-card-top">
+
+                    <div class="feature-icon">
+                        ✦
+                    </div>
+
+                    <span class="feature-arrow">
+                        →
+                    </span>
+
+                </div>
+
+                <div>
+
+                    <span class="feature-tag">
+                        AI
+                    </span>
+
+                    <h2>
+                        Understand anything
+                    </h2>
+
+                    <p>
+                        Ask Study_Mate to explain a difficult
+                        concept in simple language.
+                    </p>
+
+                </div>
+
+                <span class="feature-link">
+                    Start learning →
+                </span>
+
+            </a>
+
+
+            <!-- Quiz -->
+
+            <a href="/quiz" class="feature-card">
+
+                <div class="feature-card-top">
+
+                    <div class="feature-icon neutral-icon">
+                        ✓
+                    </div>
+
+                    <span class="feature-arrow">
+                        →
+                    </span>
+
+                </div>
+
+                <div>
+
+                    <span class="feature-tag neutral-tag">
+                        PRACTICE
+                    </span>
+
+                    <h2>
+                        Test your knowledge
+                    </h2>
+
+                    <p>
+                        AI-generated quizzes will help you
+                        practice what you've learned.
+                    </p>
+
+                </div>
+
+                <span class="feature-link">
+                    Take a quiz →
+                </span>
+
+            </a>
+
+
+            <!-- Schedule -->
+
+            <a href="/schedule" class="feature-card">
+
+                <div class="feature-card-top">
+
+                    <div class="feature-icon schedule-icon">
+                        ◷
+                    </div>
+
+                    <span class="feature-arrow">
+                        →
+                    </span>
+
+                </div>
+
+                <div>
+
+                    <span class="feature-tag schedule-tag">
+                        PLANNER
+                    </span>
+
+                    <h2>
+                        Plan your learning
+                    </h2>
+
+                    <p>
+                        Create study sessions and organize
+                        your learning schedule.
+                    </p>
+
+                </div>
+
+                <span class="feature-link">
+                    Manage schedule →
+                </span>
+
+            </a>
+
+        </section>
+
+
+        <!-- =================================================
+             SCHEDULE SECTION
+             ================================================= -->
+
+        <section id="schedule" class="dashboard-section">
+
+            <div class="section-heading">
+
+                <div>
+
+                    <span class="section-label">
+                        STUDY PLANNER
+                    </span>
+
+                    <h2>
+                        Your schedule
+                    </h2>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="add-schedule-button"
+                    onclick="openScheduleForm()"
+                >
+                    + Add session
+                </button>
+
+            </div>
+
+
+            <!-- Schedule form -->
+
+            <div
+                id="scheduleForm"
+                class="schedule-form-card"
+                hidden
+            >
+
+                <form
+                    action="/dashboard"
+                    method="POST"
+                    class="schedule-form"
+                >
+
+                    <div class="schedule-form-grid">
+
+                        <div class="form-field">
+
+                            <label for="subject">
+                                Subject
+                            </label>
+
+                            <input
+                                type="text"
+                                id="subject"
+                                name="subject"
+                                placeholder="Mathematics"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <label for="task">
+                                Task
+                            </label>
+
+                            <input
+                                type="text"
+                                id="task"
+                                name="task"
+                                placeholder="Algebra revision"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <label for="date">
+                                Date
+                            </label>
+
+                            <input
+                                type="date"
+                                id="date"
+                                name="date"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <label for="status">
+                                Status
+                            </label>
+
+                            <select
+                                id="status"
+                                name="status"
+                            >
+
+                                <option value="Pending">
+                                    Pending
+                                </option>
+
+                                <option value="In Progress">
+                                    In Progress
+                                </option>
+
+                                <option value="Completed">
+                                    Completed
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <label for="start_time">
+                                Start time
+                            </label>
+
+                            <input
+                                type="time"
+                                id="start_time"
+                                name="start_time"
+                                required
+                            >
+
+                        </div>
+
+
+                        <div class="form-field">
+
+                            <label for="end_time">
+                                End time
+                            </label>
+
+                            <input
+                                type="time"
+                                id="end_time"
+                                name="end_time"
+                                required
+                            >
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="schedule-form-actions">
+
+                        <button
+                            type="button"
+                            class="cancel-button"
+                            onclick="closeScheduleForm()"
+                        >
+                            Cancel
+                        </button>
+
+                        <button
+                            type="submit"
+                            class="save-button"
+                        >
+                            Save session
+                        </button>
+
+                    </div>
+
+                </form>
+
+            </div>
+
+
+            <!-- Schedule entries -->
+
+            <div class="schedule-list">
+
+                {% if schedule_entries %}
+
+                    {% for entry in schedule_entries %}
+
+                        <article class="schedule-item">
+
+                            <div class="schedule-time">
+
+                                <strong>
+                                    {{ entry.Start_time }}
+                                </strong>
+
+                                <span>
+                                    {{ entry.End_time }}
+                                </span>
+
+                            </div>
+
+
+                            <div class="schedule-line">
+                            </div>
+
+
+                            <div class="schedule-details">
+
+                                <div class="schedule-details-top">
+
+                                    <span class="schedule-subject">
+                                        {{ entry.Subject }}
+                                    </span>
+
+                                    <span
+                                        class="
+                                            schedule-status
+                                            {% if entry.Status == 'Completed' %}
+                                                status-completed
+                                            {% elif entry.Status == 'In Progress' %}
+                                                status-progress
+                                            {% else %}
+                                                status-pending
+                                            {% endif %}
+                                        "
+                                    >
+                                        {{ entry.Status }}
+                                    </span>
+
+                                </div>
+
+                                <h3>
+                                    {{ entry.Task }}
+                                </h3>
+
+                                <span class="schedule-date">
+                                    {{ entry.Date }}
+                                </span>
+
+                            </div>
+
+                        </article>
+
+                    {% endfor %}
+
+                {% else %}
+
+                    <div class="empty-schedule">
+
+                        <div class="empty-schedule-icon">
+                            ◷
+                        </div>
+
+                        <h3>
+                            No study sessions yet
+                        </h3>
+
+                        <p>
+                            Add your first study session to start
+                            building your schedule.
+                        </p>
+
+                        <button
+                            type="button"
+                            onclick="openScheduleForm()"
+                            class="empty-add-button"
+                        >
+                            + Add study session
+                        </button>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             QUICK AI SECTION
+             ================================================= -->
+
+        <section class="quick-ai">
+
+            <div class="quick-ai-content">
+
+                <div class="quick-ai-icon">
+                    ✦
+                </div>
+
+                <div>
+
+                    <span>
+                        AI STUDY ASSISTANT
+                    </span>
+
+                    <h2>
+                        Stuck on something?
+                    </h2>
+
+                    <p>
+                        Ask Study_Mate to explain a concept
+                        you're struggling with.
+                    </p>
+
+                </div>
+
+            </div>
+
+            <a href="/explain" class="quick-ai-button">
+                Ask AI →
+            </a>
+
+        </section>
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer class="dashboard-footer">
+
+            <div class="dashboard-footer-links">
+
+                <a href="/profile">
+                    Profile
+                </a>
+
+                <a href="/settings">
+                    Settings
+                </a>
+
+                <a href="/reports">
+                    Reports
+                </a>
+
+                <a href="/privacy-policy">
+                    Privacy
+                </a>
+
+                <a href="/terms-and-conditions">
+                    Terms
+                </a>
+
+                <a href="/logout">
+                    Logout
+                </a>
+
+            </div>
+
+        </footer>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        function openScheduleForm() {
+
+            const form =
+                document.getElementById("scheduleForm");
+
+            form.hidden = false;
+
+            form.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }
+
+
+        function closeScheduleForm() {
+
+            const form =
+                document.getElementById("scheduleForm");
+
+            form.hidden = true;
+
+        }
+
+    </script>
+
+</body>
+
+</html>

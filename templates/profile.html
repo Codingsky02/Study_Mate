@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Profile — Study_Mate</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+</head>
+
+
+<body class="dashboard-page">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="dashboard-sidebar">
+
+
+        <!-- BRAND -->
+
+        <a
+            href="/"
+            class="dashboard-brand"
+        >
+
+            <span class="dashboard-brand-mark">
+                S
+            </span>
+
+            <span>
+                Study<span>_Mate</span>
+            </span>
+
+        </a>
+
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="dashboard-nav">
+
+
+            <div class="dashboard-nav-label">
+                MAIN
+            </div>
+
+
+            <a
+                href="/dashboard"
+                class="dashboard-nav-item"
+            >
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a
+                href="/explain"
+                class="dashboard-nav-item"
+            >
+
+                <span class="nav-icon">
+                    ✦
+                </span>
+
+                Explain
+
+            </a>
+
+
+            <a
+                href="/quiz"
+                class="dashboard-nav-item"
+            >
+
+                <span class="nav-icon">
+                    ✓
+                </span>
+
+                Quiz
+
+            </a>
+
+
+            <a
+                href="/schedule"
+                class="dashboard-nav-item"
+            >
+
+                <span class="nav-icon">
+                    ◷
+                </span>
+
+                Schedule
+
+            </a>
+
+
+
+            <!-- AI -->
+
+            <div class="dashboard-nav-label ai-label">
+                AI
+            </div>
+
+
+            <a
+                href="/explain"
+                class="dashboard-nav-item"
+            >
+
+                <span class="nav-icon">
+                    ✦
+                </span>
+
+                AI Explanation
+
+            </a>
+
+
+            <a
+                href="/quiz"
+                class="dashboard-nav-item"
+            >
+
+                <span class="nav-icon">
+                    ✎
+                </span>
+
+                AI Quiz
+
+            </a>
+
+
+
+            <!-- ACCOUNT -->
+
+            <div class="dashboard-nav-label account-label">
+                ACCOUNT
+            </div>
+
+
+            <a
+                href="/settings"
+                class="dashboard-nav-item"
+            >
+
+                <span class="nav-icon">
+                    ⚙
+                </span>
+
+                Settings
+
+            </a>
+
+
+            <a
+                href="/profile"
+                class="dashboard-nav-item active"
+            >
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                Profile
+
+            </a>
+
+        </nav>
+
+
+
+        <!-- SIDEBAR USER -->
+
+        <div class="sidebar-user">
+
+
+            <div class="sidebar-avatar">
+
+                {{ user.name[0]|upper if user.name else "U" }}
+
+            </div>
+
+
+            <div class="sidebar-user-info">
+
+                <strong>
+                    {{ user.name }}
+                </strong>
+
+                <span>
+                    {{ user.email }}
+                </span>
+
+            </div>
+
+
+            <a
+                href="/logout"
+                class="logout-button"
+                title="Logout"
+            >
+
+                ↪
+
+            </a>
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="dashboard-main">
+
+
+        <!-- HEADER -->
+
+        <header class="dashboard-header">
+
+
+            <div>
+
+                <div class="dashboard-eyebrow">
+                    STUDY_MATE / PROFILE
+                </div>
+
+
+                <h1>
+                    Your profile
+                </h1>
+
+
+                <p>
+                    View the information connected to your
+                    Study_Mate account.
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-header-actions">
+
+                <a
+                    href="/dashboard"
+                    class="header-avatar"
+                    title="Back to dashboard"
+                >
+
+                    {{ user.name[0]|upper if user.name else "U" }}
+
+                </a>
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =================================================
+             PROFILE HERO
+             ================================================= -->
+
+        <section class="profile-hero">
+
+
+            <div class="profile-avatar-large">
+
+                {{ user.name[0]|upper if user.name else "U" }}
+
+            </div>
+
+
+            <div class="profile-hero-info">
+
+
+                <span class="section-label">
+                    STUDENT ACCOUNT
+                </span>
+
+
+                <h2>
+                    {{ user.name }}
+                </h2>
+
+
+                <p>
+                    {{ user.email }}
+                </p>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             PROFILE INFORMATION
+             ================================================= -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <span class="section-label">
+                        ACCOUNT INFORMATION
+                    </span>
+
+
+                    <h2>
+                        Personal details
+                    </h2>
+
+                </div>
+
+
+                <a
+                    href="/settings"
+                    class="add-schedule-button"
+                >
+                    Edit settings
+                </a>
+
+
+            </div>
+
+
+
+            <div class="profile-info-grid">
+
+
+                <!-- NAME -->
+
+                <div class="profile-info-card">
+
+                    <span class="profile-info-label">
+                        FULL NAME
+                    </span>
+
+                    <strong>
+                        {{ user.name }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="profile-info-card">
+
+                    <span class="profile-info-label">
+                        EMAIL ADDRESS
+                    </span>
+
+                    <strong>
+                        {{ user.email }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- CLASS -->
+
+                <div class="profile-info-card">
+
+                    <span class="profile-info-label">
+                        CLASS
+                    </span>
+
+                    <strong>
+                        {{ user.Class }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- TARGETED SUBJECT -->
+
+                <div class="profile-info-card">
+
+                    <span class="profile-info-label">
+                        TARGETED SUBJECT
+                    </span>
+
+                    <strong>
+                        {{ user.Targeted_Subject }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- PREVIOUS SCORE -->
+
+                <div class="profile-info-card">
+
+                    <span class="profile-info-label">
+                        PREVIOUS SCORE
+                    </span>
+
+                    <strong>
+                        {{ user.Previous_Score }}
+                    </strong>
+
+                </div>
+
+
+
+                <!-- USER ID -->
+
+                <div class="profile-info-card">
+
+                    <span class="profile-info-label">
+                        ACCOUNT ID
+                    </span>
+
+                    <strong class="profile-mono">
+                        #{{ user.id }}
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             LEARNING PROFILE
+             ================================================= -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <span class="section-label">
+                        LEARNING PROFILE
+                    </span>
+
+
+                    <h2>
+                        Your study focus
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="learning-profile-card">
+
+
+                <div class="learning-profile-icon">
+                    ✦
+                </div>
+
+
+                <div class="learning-profile-content">
+
+
+                    <span>
+                        CURRENT TARGET
+                    </span>
+
+
+                    <h2>
+                        {{ user.Targeted_Subject }}
+                    </h2>
+
+
+                    <p>
+
+                        You're currently studying as a
+
+                        <strong>
+                            Class {{ user.Class }}
+                        </strong>
+
+                        student.
+
+                        Your previous recorded score is
+
+                        <strong>
+                            {{ user.Previous_Score }}
+                        </strong>.
+
+                    </p>
+
+
+                </div>
+
+
+                <a
+                    href="/explain"
+                    class="quick-ai-button"
+                >
+                    Start learning →
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             ACCOUNT ACTIONS
+             ================================================= -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <span class="section-label">
+                        ACCOUNT
+                    </span>
+
+
+                    <h2>
+                        Manage your account
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="profile-actions-grid">
+
+
+                <!-- SETTINGS -->
+
+                <a
+                    href="/settings"
+                    class="profile-action-card"
+                >
+
+                    <div class="profile-action-icon">
+                        ⚙
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Settings
+                        </h3>
+
+
+                        <p>
+                            Manage your Study_Mate preferences
+                            and account settings.
+                        </p>
+
+                    </div>
+
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <!-- DASHBOARD -->
+
+                <a
+                    href="/dashboard"
+                    class="profile-action-card"
+                >
+
+                    <div class="profile-action-icon">
+                        ⌂
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Dashboard
+                        </h3>
+
+
+                        <p>
+                            Return to your Study_Mate
+                            learning dashboard.
+                        </p>
+
+                    </div>
+
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+
+
+                <!-- LOGOUT -->
+
+                <a
+                    href="/logout"
+                    class="profile-action-card profile-danger"
+                >
+
+                    <div class="profile-action-icon">
+                        ↪
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Log out
+                        </h3>
+
+
+                        <p>
+                            Sign out of your Study_Mate account.
+                        </p>
+
+                    </div>
+
+
+                    <span>
+                        →
+                    </span>
+
+                </a>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer class="dashboard-footer">
+
+
+            <div class="dashboard-footer-links">
+
+
+                <a href="/dashboard">
+                    Dashboard
+                </a>
+
+
+                <a href="/settings">
+                    Settings
+                </a>
+
+
+                <a href="/privacy-policy">
+                    Privacy
+                </a>
+
+
+                <a href="/terms-and-conditions">
+                    Terms
+                </a>
+
+
+                <a href="/logout">
+                    Logout
+                </a>
+
+
+            </div>
+
+
+        </footer>
+
+
+    </main>
+
+</body>
+
+</html>

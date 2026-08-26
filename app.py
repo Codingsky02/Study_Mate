@@ -4,6 +4,8 @@ import models
 
 app = Flask(__name__)
 
+app.secret_key = "study_mate_dev_secret_key_change_this"
+
 @app.route("/")
 def home():
     if "user"in session:
@@ -11,25 +13,71 @@ def home():
     return render_template("index.html")
 @app.route("/signup", methods=["GET", "POST"])
 def signup():
-    db = SessionLocal()
 
     if request.method == "POST":
-        email = request.form.get("email")
-        password = request.form.get("password")
-        name = request.form.get("name")
-        previous_score = request.form.get("previous_score")
-        targeted_subject = request.form.get("targeted_subject")
-        _class = request.form.get("class")
 
-        existing_user = db.query(models.User).filter_by(email=email).first()
+        email = request.form.get("email", "").strip()
+        password = request.form.get("password", "").strip()
+        name = request.form.get("name", "").strip()
 
-        if existing_user:
-            return "User already exists"
+        previous_score = request.form.get("previous_score", "").strip()
+        targeted_subject = request.form.get("target_subject", "").strip()
+        student_class = request.form.get("student_class", "").strip()
 
-        user = models.User(email=email, password=password, name=name, Previous_Score=previous_score, Targeted_Subject=targeted_subject, Class=_class)
-        db.add(user)
-        db.commit()
-        return redirect("/login")
+        # Check required fields
+        if not email or not password or not name:
+            return "Name, email and password are required."
+
+        if not previous_score:
+            return "Previous score is required."
+
+        if not targeted_subject:
+            return "Targeted subject is required."
+
+        if not student_class:
+            return "Class is required."
+
+        db = SessionLocal()
+
+        try:
+
+            # Check existing user
+            existing_user = (
+                db.query(models.User)
+                .filter_by(email=email)
+                .first()
+            )
+
+            if existing_user:
+                return "User already exists. Please login."
+
+            # Create user
+            user = models.User(
+                name=name,
+                email=email,
+                password=password,
+                Previous_Score=previous_score,
+                Targeted_Subject=targeted_subject,
+                Class=student_class
+            )
+
+            db.add(user)
+            db.commit()
+
+            return redirect("/login")
+
+        except Exception as e:
+
+            db.rollback()
+
+            print("SIGNUP ERROR:", e)
+
+            return f"Signup error: {e}", 500
+
+        finally:
+
+            db.close()
+
     return render_template("signup.html")
 
 @app.route("/login", methods=["GET", "POST"])
@@ -90,6 +138,252 @@ def dashboard():
 
     schedule_entries = db.query(models.Schedule).filter_by(user_id=user_id).all()
     return render_template("dashboard.html", user=user, schedule_entries=schedule_entries)
+
+
+@app.route("/settings", methods=["GET", "POST"])
+def settings():
+
+    if "user" not in session:
+        return redirect("/login")
+
+    db = SessionLocal()
+
+    try:
+
+        user_id = session["user"]
+
+        user = (
+            db.query(models.User)
+            .filter_by(id=user_id)
+            .first()
+        )
+
+        if not user:
+            session.pop("user", None)
+            return redirect("/login")
+
+        if request.method == "POST":
+
+            name = request.form.get("name", "").strip()
+            email = request.form.get("email", "").strip()
+            targeted_subject = request.form.get(
+                "targeted_subject", ""
+            ).strip()
+            student_class = request.form.get(
+                "student_class", ""
+            ).strip()
+            previous_score = request.form.get(
+                "previous_score", ""
+            ).strip()
+
+            new_password = request.form.get(
+                "new_password", ""
+            ).strip()
+
+            # Basic validation
+            if not name or not email:
+                return "Name and email are required."
+
+            if not targeted_subject:
+                return "Targeted subject is required."
+
+            if not student_class:
+                return "Class is required."
+
+            if not previous_score:
+                return "Previous score is required."
+
+            # Check if another user already has this email
+            existing_user = (
+                db.query(models.User)
+                .filter(
+                    models.User.email == email,
+                    models.User.id != user_id
+                )
+                .first()
+            )
+
+            if existing_user:
+                return "That email is already being used."
+
+            # Update profile
+            user.name = name
+            user.email = email
+            user.Targeted_Subject = targeted_subject
+            user.Class = student_class
+            user.Previous_Score = previous_score
+
+            # Update password only if entered
+            if new_password:
+                user.password = new_password
+
+            db.commit()
+
+            return redirect("/settings")
+
+        return render_template(
+            "settings.html",
+            user=user
+        )
+
+    except Exception as e:
+
+        db.rollback()
+
+        print("SETTINGS ERROR:", e)
+
+        return f"Settings error: {e}", 500
+
+    finally:
+
+        db.close()
+
+
+@app.route("/profile")
+def profile():
+    if "user" not in session:
+        return redirect("/login")
+
+    db = SessionLocal()
+
+    user_id = session["user"]
+
+    user = db.query(models.User).filter_by(id=user_id).first()
+
+    if not user:
+        session.pop("user", None)
+        return redirect("/login")
+
+    return render_template("profile.html", user=user)
+
+
+@app.route("/schedule", methods=["GET", "POST"])
+def schedule():
+    if "user" not in session:
+        return redirect("/login")
+
+    db = SessionLocal()
+
+    user_id = session["user"]
+
+    user = db.query(models.User).filter_by(id=user_id).first()
+
+    if not user:
+        session.pop("user", None)
+        return redirect("/login")
+
+    if request.method == "POST":
+
+        subject = request.form.get("subject")
+        date = request.form.get("date")
+        start_time = request.form.get("start_time")
+        end_time = request.form.get("end_time")
+        task = request.form.get("task")
+        status = request.form.get("status")
+
+        schedule_entry = models.Schedule(
+            user_id=user_id,
+            Subject=subject,
+            Date=date,
+            Start_time=start_time,
+            End_time=end_time,
+            Task=task,
+            Status=status
+        )
+
+        db.add(schedule_entry)
+        db.commit()
+
+        return redirect("/schedule")
+
+    schedule_entries = (
+        db.query(models.Schedule)
+        .filter_by(user_id=user_id)
+        .order_by(models.Schedule.Date, models.Schedule.Start_time)
+        .all()
+    )
+
+    return render_template(
+        "schedule.html",
+        user=user,
+        schedule_entries=schedule_entries
+    )
+
+@app.route("/schedule/edit/<int:schedule_id>", methods=["GET", "POST"])
+def edit_schedule(schedule_id):
+
+    if "user" not in session:
+        return redirect("/login")
+
+    db = SessionLocal()
+
+    user_id = session["user"]
+
+    user = db.query(models.User).filter_by(id=user_id).first()
+
+    if not user:
+        session.pop("user", None)
+        return redirect("/login")
+
+    entry = (
+        db.query(models.Schedule)
+        .filter_by(
+            id=schedule_id,
+            user_id=user_id
+        )
+        .first()
+    )
+
+    if not entry:
+        return "Schedule entry not found", 404
+
+    if request.method == "POST":
+
+        entry.Subject = request.form.get("subject")
+        entry.Date = request.form.get("date")
+        entry.Start_time = request.form.get("start_time")
+        entry.End_time = request.form.get("end_time")
+        entry.Task = request.form.get("task")
+        entry.Status = request.form.get("status")
+
+        db.commit()
+
+        return redirect("/schedule")
+
+    return render_template(
+        "edit_schedule.html",
+        user=user,
+        entry=entry
+    )
+
+@app.route("/schedule/delete/<int:schedule_id>", methods=["POST"])
+def delete_schedule(schedule_id):
+
+    if "user" not in session:
+        return redirect("/login")
+
+    db = SessionLocal()
+
+    user_id = session["user"]
+
+    entry = (
+        db.query(models.Schedule)
+        .filter_by(
+            id=schedule_id,
+            user_id=user_id
+        )
+        .first()
+    )
+
+    if not entry:
+        return "Schedule entry not found", 404
+
+    db.delete(entry)
+    db.commit()
+
+    return redirect("/schedule")
+
+
 
 
 if __name__=="__main__":

@@ -45,8 +45,8 @@ class Explanation(Base):
     id = Column(Integer, primary_key=True, index=True)
     user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     Subject = Column(String(100), nullable=False)
-    Questions = Column(String(100), nullable=False)
-    Explanation = Column(String(100), nullable=False)
+    Questions = Column(Text, nullable=False)
+    Explanation = Column(Text, nullable=False)
 
 
 Base.metadata.create_all(bind=Engine)

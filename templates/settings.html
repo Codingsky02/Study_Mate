@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Settings — Study_Mate</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+</head>
+
+
+<body class="settings-page">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="dashboard-sidebar">
+
+        <a
+            href="/dashboard"
+            class="dashboard-brand"
+        >
+
+            <span class="dashboard-brand-mark">
+                S
+            </span>
+
+            <span>
+                Study<span>_Mate</span>
+            </span>
+
+        </a>
+
+
+        <nav class="dashboard-nav">
+
+            <div class="dashboard-nav-label">
+                MAIN
+            </div>
+
+
+            <a
+                href="/dashboard"
+                class="dashboard-nav-item"
+            >
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+
+            <a
+                href="/explain"
+                class="dashboard-nav-item"
+            >
+                <span class="nav-icon">✦</span>
+                Explain
+            </a>
+
+
+            <a
+                href="/dashboard#schedule"
+                class="dashboard-nav-item"
+            >
+                <span class="nav-icon">◷</span>
+                Schedule
+            </a>
+
+
+            <div class="dashboard-nav-label ai-label">
+                AI
+            </div>
+
+
+            <a
+                href="/explain"
+                class="dashboard-nav-item"
+            >
+                <span class="nav-icon">✦</span>
+                AI Explanation
+            </a>
+
+
+            <div class="dashboard-nav-label account-label">
+                ACCOUNT
+            </div>
+
+
+            <a
+                href="/settings"
+                class="dashboard-nav-item active"
+            >
+                <span class="nav-icon">⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+
+        <!-- USER -->
+
+        <div class="sidebar-user">
+
+            <div class="sidebar-avatar">
+                {{ user.name[0]|upper if user.name else "U" }}
+            </div>
+
+
+            <div class="sidebar-user-info">
+
+                <strong>
+                    {{ user.name }}
+                </strong>
+
+                <span>
+                    {{ user.email }}
+                </span>
+
+            </div>
+
+
+            <a
+                href="/logout"
+                class="logout-button"
+                title="Logout"
+            >
+                ↪
+            </a>
+
+        </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN
+         ===================================================== -->
+
+    <main class="settings-main">
+
+
+        <header class="settings-header">
+
+            <div>
+
+                <div class="dashboard-eyebrow">
+                    STUDY_MATE / SETTINGS
+                </div>
+
+                <h1>
+                    Account settings
+                </h1>
+
+                <p>
+                    Manage your profile and learning preferences.
+                </p>
+
+            </div>
+
+
+            <a
+                href="/dashboard"
+                class="settings-back"
+            >
+                ← Dashboard
+            </a>
+
+        </header>
+
+
+
+        <!-- =================================================
+             PROFILE
+             ================================================= -->
+
+        <section class="settings-card">
+
+            <div class="settings-card-header">
+
+                <div class="settings-section-icon">
+                    👤
+                </div>
+
+                <div>
+
+                    <h2>
+                        Profile
+                    </h2>
+
+                    <p>
+                        Your basic account information.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form
+                action="/settings"
+                method="POST"
+                class="settings-form"
+            >
+
+
+                <!-- NAME -->
+
+                <div class="settings-form-group">
+
+                    <label for="name">
+                        Full name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value="{{ user.name }}"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- EMAIL -->
+
+                <div class="settings-form-group">
+
+                    <label for="email">
+                        Email address
+                    </label>
+
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value="{{ user.email }}"
+                        required
+                    >
+
+                </div>
+
+
+
+                <!-- CLASS -->
+
+                <div class="settings-form-group">
+
+                    <label for="student-class">
+                        Class
+                    </label>
+
+                    <select
+                        id="student-class"
+                        name="student_class"
+                        required
+                    >
+
+                        <option
+                            value="6"
+                            {% if user.Class == "6" %}selected{% endif %}
+                        >
+                            Class 6
+                        </option>
+
+                        <option
+                            value="7"
+                            {% if user.Class == "7" %}selected{% endif %}
+                        >
+                            Class 7
+                        </option>
+
+                        <option
+                            value="8"
+                            {% if user.Class == "8" %}selected{% endif %}
+                        >
+                            Class 8
+                        </option>
+
+                        <option
+                            value="9"
+                            {% if user.Class == "9" %}selected{% endif %}
+                        >
+                            Class 9
+                        </option>
+
+                        <option
+                            value="10"
+                            {% if user.Class == "10" %}selected{% endif %}
+                        >
+                            Class 10
+                        </option>
+
+                        <option
+                            value="11"
+                            {% if user.Class == "11" %}selected{% endif %}
+                        >
+                            Class 11
+                        </option>
+
+                        <option
+                            value="12"
+                            {% if user.Class == "12" %}selected{% endif %}
+                        >
+                            Class 12
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- SUBJECT -->
+
+                <div class="settings-form-group">
+
+                    <label for="targeted-subject">
+                        Targeted subject
+                    </label>
+
+                    <select
+                        id="targeted-subject"
+                        name="targeted_subject"
+                        required
+                    >
+
+                        <option
+                            value="mathematics"
+                            {% if user.Targeted_Subject == "mathematics" %}selected{% endif %}
+                        >
+                            Mathematics
+                        </option>
+
+                        <option
+                            value="science"
+                            {% if user.Targeted_Subject == "science" %}selected{% endif %}
+                        >
+                            Science
+                        </option>
+
+                        <option
+                            value="english"
+                            {% if user.Targeted_Subject == "english" %}selected{% endif %}
+                        >
+                            English
+                        </option>
+
+                        <option
+                            value="social-science"
+                            {% if user.Targeted_Subject == "social-science" %}selected{% endif %}
+                        >
+                            Social Science
+                        </option>
+
+                        <option
+                            value="computer-science"
+                            {% if user.Targeted_Subject == "computer-science" %}selected{% endif %}
+                        >
+                            Computer Science
+                        </option>
+
+                        <option
+                            value="other"
+                            {% if user.Targeted_Subject == "other" %}selected{% endif %}
+                        >
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+
+                <!-- SCORE -->
+
+                <div class="settings-form-group">
+
+                    <label for="previous-score">
+                        Previous score
+                    </label>
+
+                    <div class="settings-score-input">
+
+                        <input
+                            type="number"
+                            id="previous-score"
+                            name="previous_score"
+                            value="{{ user.Previous_Score }}"
+                            min="0"
+                            max="100"
+                            step="0.01"
+                            required
+                        >
+
+                        <span>%</span>
+
+                    </div>
+
+                    <small>
+                        Your previous academic percentage.
+                    </small>
+
+                </div>
+
+
+
+                <div class="settings-form-actions">
+
+                    <button
+                        type="submit"
+                        class="settings-save"
+                    >
+                        Save changes
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- =================================================
+             PASSWORD
+             ================================================= -->
+
+        <section class="settings-card">
+
+            <div class="settings-card-header">
+
+                <div class="settings-section-icon">
+                    🔒
+                </div>
+
+                <div>
+
+                    <h2>
+                        Password
+                    </h2>
+
+                    <p>
+                        Change your account password.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <form
+                action="/settings"
+                method="POST"
+                class="settings-password-form"
+            >
+
+                <!-- Preserve existing profile data -->
+
+                <input
+                    type="hidden"
+                    name="name"
+                    value="{{ user.name }}"
+                >
+
+                <input
+                    type="hidden"
+                    name="email"
+                    value="{{ user.email }}"
+                >
+
+                <input
+                    type="hidden"
+                    name="student_class"
+                    value="{{ user.Class }}"
+                >
+
+                <input
+                    type="hidden"
+                    name="targeted_subject"
+                    value="{{ user.Targeted_Subject }}"
+                >
+
+                <input
+                    type="hidden"
+                    name="previous_score"
+                    value="{{ user.Previous_Score }}"
+                >
+
+
+                <div class="settings-form-group">
+
+                    <label for="new-password">
+                        New password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="new-password"
+                        name="new_password"
+                        minlength="8"
+                        placeholder="Enter a new password"
+                    >
+
+                    <small>
+                        Leave blank if you don't want to change it.
+                    </small>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="settings-secondary-button"
+                >
+                    Update password
+                </button>
+
+            </form>
+
+        </section>
+
+
+
+        <!-- =================================================
+             ACCOUNT ACTIONS
+             ================================================= -->
+
+        <section class="settings-danger-card">
+
+            <div>
+
+                <span class="danger-label">
+                    ACCOUNT
+                </span>
+
+                <h2>
+                    Sign out of Study_Mate
+                </h2>
+
+                <p>
+                    End your current session on this device.
+                </p>
+
+            </div>
+
+
+            <a
+                href="/logout"
+                class="settings-logout"
+            >
+                Log out
+            </a>
+
+        </section>
+
+
+    </main>
+
+
+</body>
+
+</html>

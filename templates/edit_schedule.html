@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>Edit Schedule — Study_Mate</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="/static/css/style.css"
+    >
+
+</head>
+
+
+<body class="dashboard-page">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="dashboard-sidebar">
+
+
+        <!-- BRAND -->
+
+        <a
+            href="/"
+            class="dashboard-brand"
+        >
+
+            <span class="dashboard-brand-mark">
+                S
+            </span>
+
+            <span>
+                Study<span>_Mate</span>
+            </span>
+
+        </a>
+
+
+
+        <!-- NAVIGATION -->
+
+        <nav class="dashboard-nav">
+
+
+            <div class="dashboard-nav-label">
+                MAIN
+            </div>
+
+
+            <a
+                href="/dashboard"
+                class="dashboard-nav-item"
+            >
+
+                <span class="nav-icon">
+                    ⌂
+                </span>
+
+                Dashboard
+
+            </a>
+
+
+            <a
+                href="/explain"
+                class="dashboard-nav-item"
+            >
+
+                <span class="nav-icon">
+                    ✦
+                </span>
+
+                Explain
+
+            </a>
+
+
+            <a
+                href="/quiz"
+                class="dashboard-nav-item"
+            >
+
+                <span class="nav-icon">
+                    ✓
+                </span>
+
+                Quiz
+
+            </a>
+
+
+            <a
+                href="/schedule"
+                class="dashboard-nav-item active"
+            >
+
+                <span class="nav-icon">
+                    ◷
+                </span>
+
+                Schedule
+
+            </a>
+
+
+
+            <!-- AI -->
+
+            <div class="dashboard-nav-label ai-label">
+                AI
+            </div>
+
+
+            <a
+                href="/explain"
+                class="dashboard-nav-item"
+            >
+
+                <span class="nav-icon">
+                    ✦
+                </span>
+
+                AI Explanation
+
+            </a>
+
+
+            <a
+                href="/quiz"
+                class="dashboard-nav-item"
+            >
+
+                <span class="nav-icon">
+                    ✎
+                </span>
+
+                AI Quiz
+
+            </a>
+
+
+
+            <!-- ACCOUNT -->
+
+            <div class="dashboard-nav-label account-label">
+                ACCOUNT
+            </div>
+
+
+            <a
+                href="/settings"
+                class="dashboard-nav-item"
+            >
+
+                <span class="nav-icon">
+                    ⚙
+                </span>
+
+                Settings
+
+            </a>
+
+
+            <a
+                href="/profile"
+                class="dashboard-nav-item"
+            >
+
+                <span class="nav-icon">
+                    ◉
+                </span>
+
+                Profile
+
+            </a>
+
+        </nav>
+
+
+
+        <!-- USER -->
+
+        <div class="sidebar-user">
+
+
+            <div class="sidebar-avatar">
+
+                {{ user.name[0]|upper if user.name else "U" }}
+
+            </div>
+
+
+            <div class="sidebar-user-info">
+
+                <strong>
+                    {{ user.name }}
+                </strong>
+
+                <span>
+                    {{ user.email }}
+                </span>
+
+            </div>
+
+
+            <a
+                href="/logout"
+                class="logout-button"
+                title="Logout"
+            >
+                ↪
+            </a>
+
+
+        </div>
+
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+         ===================================================== -->
+
+    <main class="dashboard-main">
+
+
+        <!-- HEADER -->
+
+        <header class="dashboard-header">
+
+
+            <div>
+
+                <div class="dashboard-eyebrow">
+                    STUDY_MATE / SCHEDULE / EDIT
+                </div>
+
+
+                <h1>
+                    Edit study session
+                </h1>
+
+
+                <p>
+                    Update the details of your study session.
+                </p>
+
+            </div>
+
+
+            <div class="dashboard-header-actions">
+
+
+                <a
+                    href="/profile"
+                    class="header-avatar"
+                    title="Profile"
+                >
+
+                    {{ user.name[0]|upper if user.name else "U" }}
+
+                </a>
+
+
+            </div>
+
+
+        </header>
+
+
+
+        <!-- =================================================
+             EDIT FORM
+             ================================================= -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <span class="section-label">
+                        UPDATE SESSION
+                    </span>
+
+
+                    <h2>
+                        {{ entry.Task }}
+                    </h2>
+
+
+                    <p class="section-description">
+                        Change any details below and save your
+                        updated study session.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="schedule-form-card">
+
+
+                <form
+                    action="/schedule/edit/{{ entry.id }}"
+                    method="POST"
+                    class="schedule-form"
+                >
+
+
+                    <div class="schedule-form-grid">
+
+
+                        <!-- SUBJECT -->
+
+                        <div class="form-field">
+
+                            <label for="subject">
+                                Subject
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="subject"
+                                name="subject"
+                                value="{{ entry.Subject }}"
+                                placeholder="Mathematics"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- TASK -->
+
+                        <div class="form-field">
+
+                            <label for="task">
+                                Task
+                            </label>
+
+
+                            <input
+                                type="text"
+                                id="task"
+                                name="task"
+                                value="{{ entry.Task }}"
+                                placeholder="Algebra revision"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- DATE -->
+
+                        <div class="form-field">
+
+                            <label for="date">
+                                Date
+                            </label>
+
+
+                            <input
+                                type="date"
+                                id="date"
+                                name="date"
+                                value="{{ entry.Date }}"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- STATUS -->
+
+                        <div class="form-field">
+
+                            <label for="status">
+                                Status
+                            </label>
+
+
+                            <select
+                                id="status"
+                                name="status"
+                                required
+                            >
+
+                                <option
+                                    value="Pending"
+                                    {% if entry.Status == "Pending" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Pending
+                                </option>
+
+
+                                <option
+                                    value="In Progress"
+                                    {% if entry.Status == "In Progress" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    In Progress
+                                </option>
+
+
+                                <option
+                                    value="Completed"
+                                    {% if entry.Status == "Completed" %}
+                                        selected
+                                    {% endif %}
+                                >
+                                    Completed
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+
+                        <!-- START TIME -->
+
+                        <div class="form-field">
+
+                            <label for="start_time">
+                                Start time
+                            </label>
+
+
+                            <input
+                                type="time"
+                                id="start_time"
+                                name="start_time"
+                                value="{{ entry.Start_time }}"
+                                required
+                            >
+
+                        </div>
+
+
+
+                        <!-- END TIME -->
+
+                        <div class="form-field">
+
+                            <label for="end_time">
+                                End time
+                            </label>
+
+
+                            <input
+                                type="time"
+                                id="end_time"
+                                name="end_time"
+                                value="{{ entry.End_time }}"
+                                required
+                            >
+
+                        </div>
+
+
+                    </div>
+
+
+
+                    <!-- FORM ACTIONS -->
+
+                    <div class="schedule-form-actions">
+
+
+                        <a
+                            href="/schedule"
+                            class="cancel-button"
+                        >
+                            ← Cancel
+                        </a>
+
+
+                        <button
+                            type="submit"
+                            class="save-button"
+                        >
+                            Save changes
+                        </button>
+
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             CURRENT SESSION PREVIEW
+             ================================================= -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <span class="section-label">
+                        CURRENT SESSION
+                    </span>
+
+
+                    <h2>
+                        Session details
+                    </h2>
+
+                </div>
+
+
+            </div>
+
+
+
+            <article class="schedule-item">
+
+
+                <!-- TIME -->
+
+                <div class="schedule-time">
+
+                    <strong>
+                        {{ entry.Start_time }}
+                    </strong>
+
+                    <span>
+                        {{ entry.End_time }}
+                    </span>
+
+                </div>
+
+
+
+                <!-- TIMELINE -->
+
+                <div class="schedule-line">
+                </div>
+
+
+
+                <!-- DETAILS -->
+
+                <div class="schedule-details">
+
+
+                    <div class="schedule-details-top">
+
+
+                        <span class="schedule-subject">
+                            {{ entry.Subject }}
+                        </span>
+
+
+                        <span
+                            class="
+                                schedule-status
+                                {% if entry.Status == 'Completed' %}
+                                    status-completed
+                                {% elif entry.Status == 'In Progress' %}
+                                    status-progress
+                                {% else %}
+                                    status-pending
+                                {% endif %}
+                            "
+                        >
+
+                            {{ entry.Status }}
+
+                        </span>
+
+
+                    </div>
+
+
+                    <h3>
+                        {{ entry.Task }}
+                    </h3>
+
+
+                    <span class="schedule-date">
+                        {{ entry.Date }}
+                    </span>
+
+
+                </div>
+
+
+            </article>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             DELETE SESSION
+             ================================================= -->
+
+        <section class="dashboard-section">
+
+
+            <div class="section-heading">
+
+
+                <div>
+
+                    <span class="section-label">
+                        DANGER ZONE
+                    </span>
+
+
+                    <h2>
+                        Delete session
+                    </h2>
+
+
+                    <p class="section-description">
+                        Deleting this session permanently removes
+                        it from your schedule.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+
+            <div class="schedule-form-card">
+
+
+                <form
+                    action="/schedule/delete/{{ entry.id }}"
+                    method="POST"
+                    onsubmit="return confirmDelete();"
+                >
+
+
+                    <div class="schedule-form-actions">
+
+
+                        <a
+                            href="/schedule"
+                            class="cancel-button"
+                        >
+                            Keep session
+                        </a>
+
+
+                        <button
+                            type="submit"
+                            class="schedule-delete-button"
+                        >
+                            Delete session
+                        </button>
+
+
+                    </div>
+
+
+                </form>
+
+
+            </div>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             AI SECTION
+             ================================================= -->
+
+        <section class="quick-ai">
+
+
+            <div class="quick-ai-content">
+
+
+                <div class="quick-ai-icon">
+                    ✦
+                </div>
+
+
+                <div>
+
+                    <span>
+                        AI STUDY ASSISTANT
+                    </span>
+
+
+                    <h2>
+                        Need help with this topic?
+                    </h2>
+
+
+                    <p>
+                        Ask Study_Mate to explain a difficult
+                        concept before continuing your study session.
+                    </p>
+
+                </div>
+
+
+            </div>
+
+
+            <a
+                href="/explain"
+                class="quick-ai-button"
+            >
+                Ask AI →
+            </a>
+
+
+        </section>
+
+
+
+        <!-- =================================================
+             FOOTER
+             ================================================= -->
+
+        <footer class="dashboard-footer">
+
+
+            <div class="dashboard-footer-links">
+
+
+                <a href="/dashboard">
+                    Dashboard
+                </a>
+
+
+                <a href="/explain">
+                    Explain
+                </a>
+
+
+                <a href="/quiz">
+                    Quiz
+                </a>
+
+
+                <a href="/schedule">
+                    Schedule
+                </a>
+
+
+                <a href="/profile">
+                    Profile
+                </a>
+
+
+                <a href="/settings">
+                    Settings
+                </a>
+
+
+                <a href="/privacy-policy">
+                    Privacy
+                </a>
+
+
+                <a href="/terms-and-conditions">
+                    Terms
+                </a>
+
+
+                <a href="/logout">
+                    Logout
+                </a>
+
+
+            </div>
+
+
+        </footer>
+
+
+    </main>
+
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        function confirmDelete() {
+
+            return confirm(
+                "Are you sure you want to permanently delete this study session?"
+            );
+
+        }
+
+    </script>
+
+
+</body>
+
+</html>
