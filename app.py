@@ -1,6 +1,7 @@
 from flask import Flask, redirect, render_template, request, session
 from db import SessionLocal, Engine
 import models
+from ai import explain_topic
 
 app = Flask(__name__)
 
@@ -384,7 +385,81 @@ def delete_schedule(schedule_id):
     return redirect("/schedule")
 
 
+@app.route("/explain", methods=["GET", "POST"])
+def explain():
 
+    if "user" not in session:
+        return redirect("/login")
+
+    db = SessionLocal()
+
+    try:
+        user_id = session["user"]
+
+        user = (
+            db.query(models.User)
+            .filter_by(id=user_id)
+            .first()
+        )
+
+        if not user:
+            session.pop("user", None)
+            return redirect("/login")
+
+        if request.method == "POST":
+
+            subject = request.form.get("subject", "").strip()
+            question = request.form.get("question", "").strip()
+
+            if not subject or not question:
+                return "Subject and question are required.", 400
+
+            # Generate explanation using Gemini
+            explanation_text = explain_topic(
+                question=question,
+                subject=subject,
+                student_class=user.Class
+            )
+
+            # Save explanation
+            explanation = models.Explanation(
+                user_id=user_id,
+                Subject=subject,
+                Questions=question,
+                Explanation=explanation_text
+            )
+
+            db.add(explanation)
+            db.commit()
+
+        # Get user's explanation history
+        explanations = (
+            db.query(models.Explanation)
+            .filter_by(user_id=user_id)
+            .order_by(models.Explanation.id.desc())
+            .all()
+        )
+
+        latest_explanation = (
+            explanations[0]
+            if explanations
+            else None
+        )
+
+        return render_template(
+            "explain.html",
+            user=user,
+            explanations=explanations,
+            latest_explanation=latest_explanation
+        )
+
+    finally:
+        db.close()
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/login")
 
 if __name__=="__main__":
     app.run(debug=True) 

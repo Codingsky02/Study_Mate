@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>AI Explanation — Study_Mate</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <style>
+        /*
+        =========================================================
+        CHATGPT-STYLE INTERFACE
+        No changes to style.css required.
+        Everything below is scoped to this page.
+        =========================================================
+        */
+
+        .chat-interface {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            padding-bottom: 140px;
+        }
+
+        .chat-welcome {
+            text-align: center;
+            padding: 70px 20px 45px;
+        }
+
+        .chat-welcome-icon {
+            width: 52px;
+            height: 52px;
+            margin: 0 auto 22px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 16px;
+
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            font-size: 24px;
+        }
+
+        .chat-welcome h2 {
+            margin: 0 0 10px;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .chat-welcome p {
+            margin: 0 auto;
+            max-width: 550px;
+            opacity: 0.65;
+            line-height: 1.7;
+        }
+
+        /*
+        =========================================================
+        CHAT MESSAGES
+        =========================================================
+        */
+
+        .chat-messages {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .chat-message {
+            display: flex;
+            gap: 14px;
+            width: 100%;
+        }
+
+        .chat-message.user-message {
+            justify-content: flex-end;
+        }
+
+        .chat-message.ai-message {
+            justify-content: flex-start;
+        }
+
+        .chat-avatar {
+            width: 34px;
+            height: 34px;
+            min-width: 34px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 10px;
+
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .user-message .chat-avatar {
+            order: 2;
+        }
+
+        .chat-message-content {
+            max-width: 78%;
+            line-height: 1.75;
+            font-size: 15px;
+        }
+
+        .user-message .chat-message-content {
+            background: rgba(255, 255, 255, 0.07);
+            padding: 13px 17px;
+            border-radius: 18px 18px 5px 18px;
+        }
+
+        .ai-message .chat-message-content {
+            padding-top: 2px;
+        }
+
+        .chat-message-label {
+            display: block;
+            margin-bottom: 5px;
+
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            opacity: 0.45;
+        }
+
+        .chat-message-content p {
+            margin: 0 0 12px;
+        }
+
+        .chat-message-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /*
+        =========================================================
+        AI RESPONSE MARKDOWN
+        =========================================================
+        */
+
+        .ai-response h1,
+        .ai-response h2,
+        .ai-response h3 {
+            margin-top: 24px;
+            margin-bottom: 10px;
+        }
+
+        .ai-response h1 {
+            font-size: 23px;
+        }
+
+        .ai-response h2 {
+            font-size: 20px;
+        }
+
+        .ai-response h3 {
+            font-size: 17px;
+        }
+
+        .ai-response ul,
+        .ai-response ol {
+            margin: 10px 0 16px 22px;
+            padding: 0;
+        }
+
+        .ai-response li {
+            margin-bottom: 7px;
+        }
+
+        .ai-response strong {
+            font-weight: 700;
+        }
+
+        .ai-response code {
+            padding: 2px 6px;
+            border-radius: 5px;
+
+            background: rgba(255, 255, 255, 0.08);
+
+            font-family: "JetBrains Mono", monospace;
+            font-size: 0.9em;
+        }
+
+        .ai-response pre {
+            padding: 15px;
+            overflow-x: auto;
+            border-radius: 10px;
+
+            background: rgba(0, 0, 0, 0.25);
+        }
+
+        .ai-response pre code {
+            padding: 0;
+            background: transparent;
+        }
+
+        /*
+        =========================================================
+        CHAT INPUT
+        =========================================================
+        */
+
+        .chat-input-container {
+            position: fixed;
+
+            left: calc(50% + 120px);
+            bottom: 22px;
+
+            transform: translateX(-50%);
+
+            width: min(850px, calc(100% - 350px));
+
+            z-index: 50;
+        }
+
+        .chat-input-box {
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+
+            padding: 10px 10px 10px 15px;
+
+            border-radius: 20px;
+
+            background: rgba(20, 20, 24, 0.96);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+
+            box-shadow:
+                0 10px 35px rgba(0, 0, 0, 0.3);
+        }
+
+        .chat-input-box select {
+            width: 125px;
+            height: 42px;
+
+            padding: 0 10px;
+
+            border-radius: 10px;
+
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.05);
+
+            color: inherit;
+
+            outline: none;
+        }
+
+        .chat-input-box textarea {
+            flex: 1;
+
+            min-height: 42px;
+            max-height: 180px;
+
+            resize: none;
+
+            padding: 11px 5px;
+
+            border: none;
+            outline: none;
+
+            background: transparent;
+
+            color: inherit;
+
+            font-family: inherit;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        .chat-input-box textarea::placeholder {
+            opacity: 0.45;
+        }
+
+        .chat-send-button {
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border: none;
+            border-radius: 12px;
+
+            cursor: pointer;
+
+            font-size: 18px;
+
+            background: rgba(255, 255, 255, 0.12);
+            color: inherit;
+
+            transition: 0.2s ease;
+        }
+
+        .chat-send-button:hover {
+            transform: translateY(-1px);
+            background: rgba(255, 255, 255, 0.18);
+        }
+
+        .chat-send-button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .chat-disclaimer {
+            margin-top: 8px;
+
+            text-align: center;
+
+            font-size: 10px;
+            opacity: 0.4;
+        }
+
+        /*
+        =========================================================
+        TYPING INDICATOR
+        =========================================================
+        */
+
+        .typing {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 10px 0;
+        }
+
+        .typing span {
+            width: 6px;
+            height: 6px;
+
+            border-radius: 50%;
+
+            background: currentColor;
+
+            opacity: 0.4;
+
+            animation: typing 1.2s infinite;
+        }
+
+        .typing span:nth-child(2) {
+            animation-delay: 0.15s;
+        }
+
+        .typing span:nth-child(3) {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes typing {
+
+            0%,
+            60%,
+            100% {
+                transform: translateY(0);
+                opacity: 0.35;
+            }
+
+            30% {
+                transform: translateY(-4px);
+                opacity: 0.8;
+            }
+        }
+
+        /*
+        =========================================================
+        MOBILE
+        =========================================================
+        */
+
+        @media (max-width: 900px) {
+
+            .chat-input-container {
+                left: 50%;
+                width: calc(100% - 30px);
+            }
+
+            .chat-message-content {
+                max-width: 88%;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+
+            .chat-welcome {
+                padding-top: 35px;
+            }
+
+            .chat-welcome h2 {
+                font-size: 23px;
+            }
+
+            .chat-input-box select {
+                display: none;
+            }
+
+            .chat-message-content {
+                max-width: 85%;
+            }
+
+        }
+    </style>
+
+</head>
+
+
+<body class="explain-page">
+
+
+    <!-- =====================================================
+         SIDEBAR
+         ===================================================== -->
+
+    <aside class="dashboard-sidebar">
+
+        <a href="/dashboard" class="dashboard-brand">
+
+            <span class="dashboard-brand-mark">
+                S
+            </span>
+
+            <span>
+                Study<span>_Mate</span>
+            </span>
+
+        </a>
+
+
+        <nav class="dashboard-nav">
+
+            <div class="dashboard-nav-label">
+                MAIN
+            </div>
+
+            <a href="/dashboard" class="dashboard-nav-item">
+                <span class="nav-icon">⌂</span>
+                Dashboard
+            </a>
+
+            <a href="/explain" class="dashboard-nav-item active">
+                <span class="nav-icon">✦</span>
+                Explain
+            </a>
+
+            <a href="/quiz" class="dashboard-nav-item">
+                <span class="nav-icon">✓</span>
+                Quiz
+            </a>
+
+            <a href="/schedule" class="dashboard-nav-item">
+                <span class="nav-icon">◷</span>
+                Schedule
+            </a>
+
+
+            <div class="dashboard-nav-label ai-label">
+                AI
+            </div>
+
+            <a href="/explain" class="dashboard-nav-item active">
+                <span class="nav-icon">✦</span>
+                AI Explanation
+            </a>
+
+            <a href="/quiz" class="dashboard-nav-item">
+                <span class="nav-icon">✎</span>
+                AI Quiz
+            </a>
+
+
+            <div class="dashboard-nav-label account-label">
+                ACCOUNT
+            </div>
+
+            <a href="/profile" class="dashboard-nav-item">
+                <span class="nav-icon">◉</span>
+                Profile
+            </a>
+
+            <a href="/settings" class="dashboard-nav-item">
+                <span class="nav-icon">⚙</span>
+                Settings
+            </a>
+
+        </nav>
+
+
+        <div class="sidebar-user">
+
+            <div class="sidebar-avatar">
+                {{ user.name[0]|upper if user.name else "U" }}
+            </div>
+
+            <div class="sidebar-user-info">
+
+                <strong>
+                    {{ user.name }}
+                </strong>
+
+                <span>
+                    {{ user.email }}
+                </span>
+
+            </div>
+
+            <a
+                href="/logout"
+                class="logout-button"
+                title="Logout"
+            >
+                ↪
+            </a>
+
+        </div>
+
+    </aside>
+
+
+    <!-- =====================================================
+         MAIN CHAT
+         ===================================================== -->
+
+    <main class="dashboard-main explain-main">
+
+        <div class="chat-interface">
+
+
+            <!-- WELCOME -->
+
+            <div
+                class="chat-welcome"
+                id="chatWelcome"
+            >
+
+                <div class="chat-welcome-icon">
+                    ✦
+                </div>
+
+                <h2>
+                    What can I explain for you?
+                </h2>
+
+                <p>
+                    Ask Study_Mate anything you're learning.
+                    I'll explain it according to your class level.
+                </p>
+
+            </div>
+
+
+            <!-- =================================================
+                 CHAT MESSAGES
+                 ================================================= -->
+
+            <div
+                class="chat-messages"
+                id="chatMessages"
+            >
+
+                {% if latest_explanation %}
+
+                    <!-- USER MESSAGE -->
+
+                    <div class="chat-message user-message">
+
+                        <div class="chat-message-content">
+
+                            <span class="chat-message-label">
+                                YOU
+                            </span>
+
+                            {{ latest_explanation.Questions }}
+
+                        </div>
+
+                        <div class="chat-avatar">
+                            {{ user.name[0]|upper if user.name else "U" }}
+                        </div>
+
+                    </div>
+
+
+                    <!-- AI MESSAGE -->
+
+                    <div class="chat-message ai-message">
+
+                        <div class="chat-avatar">
+                            ✦
+                        </div>
+
+                        <div class="chat-message-content">
+
+                            <span class="chat-message-label">
+                                STUDY_MATE
+                            </span>
+
+                            <div class="ai-response">
+
+                                {{ latest_explanation.Explanation
+                                   | replace('\n', '<br>')
+                                   | safe }}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+             CHAT INPUT
+             ===================================================== -->
+
+        <div class="chat-input-container">
+
+            <form
+                action="/explain"
+                method="POST"
+                id="chatForm"
+            >
+
+                <div class="chat-input-box">
+
+
+                    <!-- SUBJECT -->
+
+                    <select
+                        name="subject"
+                        id="subject"
+                        required
+                    >
+
+                        <option value="" disabled selected>
+                            Subject
+                        </option>
+
+                        <option value="Mathematics">
+                            Mathematics
+                        </option>
+
+                        <option value="Science">
+                            Science
+                        </option>
+
+                        <option value="English">
+                            English
+                        </option>
+
+                        <option value="Social Science">
+                            Social Science
+                        </option>
+
+                        <option value="Computer Science">
+                            Computer Science
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+
+                    <!-- MESSAGE -->
+
+                    <textarea
+                        name="question"
+                        id="question"
+                        rows="1"
+                        maxlength="2000"
+                        placeholder="Ask anything..."
+                        required
+                    ></textarea>
+
+
+                    <!-- SEND -->
+
+                    <button
+                        type="submit"
+                        class="chat-send-button"
+                        id="sendButton"
+                        title="Send"
+                    >
+                        ↑
+                    </button>
+
+                </div>
+
+            </form>
+
+
+            <div class="chat-disclaimer">
+                Study_Mate can make mistakes. Check important information.
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =====================================================
+         JAVASCRIPT
+         ===================================================== -->
+
+    <script>
+
+        const textarea =
+            document.getElementById("question");
+
+        const form =
+            document.getElementById("chatForm");
+
+        const sendButton =
+            document.getElementById("sendButton");
+
+
+        /*
+        ---------------------------------------------------------
+        AUTO RESIZE TEXTAREA
+        ---------------------------------------------------------
+        */
+
+        textarea.addEventListener("input", function () {
+
+            this.style.height = "auto";
+
+            this.style.height =
+                Math.min(this.scrollHeight, 180) + "px";
+
+        });
+
+
+        /*
+        ---------------------------------------------------------
+        ENTER TO SEND
+        SHIFT + ENTER = NEW LINE
+        ---------------------------------------------------------
+        */
+
+        textarea.addEventListener("keydown", function (event) {
+
+            if (
+                event.key === "Enter" &&
+                !event.shiftKey
+            ) {
+
+                event.preventDefault();
+
+                if (this.value.trim()) {
+                    form.requestSubmit();
+                }
+
+            }
+
+        });
+
+
+        /*
+        ---------------------------------------------------------
+        LOADING STATE
+        ---------------------------------------------------------
+        */
+
+        form.addEventListener("submit", function () {
+
+            if (!textarea.value.trim()) {
+                return;
+            }
+
+            sendButton.disabled = true;
+
+            sendButton.innerHTML = "…";
+
+        });
+
+
+        /*
+        ---------------------------------------------------------
+        SCROLL TO LATEST MESSAGE
+        ---------------------------------------------------------
+        */
+
+        window.addEventListener("load", function () {
+
+            const messages =
+                document.getElementById("chatMessages");
+
+            if (messages.children.length > 0) {
+
+                messages.lastElementChild.scrollIntoView({
+                    behavior: "smooth",
+                    block: "center"
+                });
+
+            }
+
+        });
+
+    </script>
+
+
+</body>
+
+</html>
