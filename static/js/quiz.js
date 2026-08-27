@@ -883,3 +883,76 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
 });
+
+async function generateQuiz() {
+    const button = document.getElementById("generateQuizBtn");
+    const loading = document.getElementById("quizLoading");
+    const errorBox = document.getElementById("quizError");
+
+    if (button) {
+        button.disabled = true;
+        button.textContent = "Generating...";
+    }
+
+    if (loading) {
+        loading.style.display = "block";
+    }
+
+    if (errorBox) {
+        errorBox.style.display = "none";
+        errorBox.textContent = "";
+    }
+
+    try {
+        const response = await fetch("/api/quiz/generate", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({})
+        });
+
+        const data = await response.json();
+
+        console.log("Quiz API response:", data);
+
+        if (!response.ok) {
+            throw new Error(
+                data.error || "Failed to generate quiz."
+            );
+        }
+
+        if (!data.questions || data.questions.length === 0) {
+            throw new Error(
+                data.message || "No quiz questions were generated."
+            );
+        }
+
+        // Store generated quiz
+        window.currentQuiz = data;
+
+        // Display quiz
+        displayQuiz(data);
+
+    } catch (error) {
+
+        console.error("Quiz generation failed:", error);
+
+        if (errorBox) {
+            errorBox.textContent = error.message;
+            errorBox.style.display = "block";
+        }
+
+    } finally {
+
+        // THIS IS CRITICAL
+        if (loading) {
+            loading.style.display = "none";
+        }
+
+        if (button) {
+            button.disabled = false;
+            button.textContent = "Generate Personalized Quiz";
+        }
+    }
+}
