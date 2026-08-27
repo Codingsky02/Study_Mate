@@ -1,7 +1,7 @@
-import os
-
 from dotenv import load_dotenv
+from flask import json
 from google import genai
+import os
 
 load_dotenv()
 
@@ -54,3 +54,97 @@ Rules:
     )
 
     return response.text
+
+
+
+
+
+
+def generate_personalized_quiz(
+    student_class,
+    tasks,
+    schedule,
+    question_count=10
+):
+
+    prompt = f"""
+You are Study_Mate, an AI educational assistant.
+
+Create a personalized school quiz for a student.
+
+Student class:
+{student_class}
+
+Recently completed study tasks:
+{json.dumps(tasks, indent=2)}
+
+Upcoming/recent study schedule:
+{json.dumps(schedule, indent=2)}
+
+Requirements:
+
+1. Generate exactly {question_count} multiple-choice questions.
+2. Questions MUST be based only on subjects/topics appearing in the supplied tasks or schedule.
+3. Do not introduce unrelated subjects.
+4. Give extra priority to topics the student recently completed.
+5. Include multiple subjects when multiple subjects are available.
+6. Difficulty should be appropriate for class {student_class}.
+7. Questions should test understanding, not just memorization.
+8. Every question must have exactly 4 options.
+9. There must be exactly one correct answer.
+10. Do not repeat questions.
+11. Return valid JSON only.
+12. Do not use Markdown.
+13. Do not include explanations in the generated quiz.
+
+Return exactly this structure:
+
+{{
+    "title": "Your Personalized Study Quiz",
+    "description": "A quiz based on your recent Study_Mate activity.",
+    "questions": [
+        {{
+            "subject": "Mathematics",
+            "topic": "Algebraic Expressions",
+            "question": "Question text",
+            "options": [
+                "Option A",
+                "Option B",
+                "Option C",
+                "Option D"
+            ],
+            "answer": 0
+        }}
+    ]
+}}
+
+The "answer" field must be the zero-based index
+of the correct option.
+"""
+
+
+    response = client.models.generate_content(
+        model="gemini-3.6-flash",
+        contents=prompt
+    )
+
+
+    text = response.text.strip()
+
+
+    if text.startswith("```"):
+        text = text.replace("```json", "")
+        text = text.replace("```", "")
+        text = text.strip()
+
+
+    quiz = json.loads(text)
+
+
+    if "questions" not in quiz:
+        raise ValueError(
+            "Gemini returned an invalid quiz."
+        )
+
+
+    return quiz

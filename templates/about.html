@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>About | Study Mate</title>
+
+    <link rel="stylesheet" href="/static/css/style.css">
+
+    <style>
+        .about-page {
+            min-height: 100vh;
+            padding: 60px 8%;
+        }
+
+        .about-hero {
+            max-width: 850px;
+            margin-bottom: 50px;
+        }
+
+        .about-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 30px;
+            background: rgba(99, 102, 241, 0.12);
+            color: #6366f1;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .about-hero h1 {
+            font-size: 52px;
+            margin: 0 0 18px;
+        }
+
+        .about-hero h1 span {
+            color: #6366f1;
+        }
+
+        .about-hero p {
+            font-size: 18px;
+            line-height: 1.7;
+            opacity: 0.75;
+            max-width: 720px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 60px;
+        }
+
+        .about-card {
+            padding: 28px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        .about-card-icon {
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 14px;
+            background: rgba(99, 102, 241, 0.12);
+            font-size: 24px;
+            margin-bottom: 18px;
+        }
+
+        .about-card h3 {
+            margin: 0 0 10px;
+            font-size: 20px;
+        }
+
+        .about-card p {
+            margin: 0;
+            line-height: 1.6;
+            opacity: 0.7;
+        }
+
+        .mission {
+            padding: 40px;
+            border-radius: 24px;
+            background: rgba(99, 102, 241, 0.08);
+            border: 1px solid rgba(99, 102, 241, 0.15);
+            margin-bottom: 50px;
+        }
+
+        .mission h2 {
+            margin-top: 0;
+            font-size: 30px;
+        }
+
+        .mission p {
+            line-height: 1.8;
+            opacity: 0.75;
+            max-width: 850px;
+        }
+
+        .features-title {
+            font-size: 30px;
+            margin-bottom: 25px;
+        }
+
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature {
+            padding: 25px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .feature strong {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+
+        .feature p {
+            margin: 0;
+            line-height: 1.6;
+            opacity: 0.7;
+        }
+
+        .about-footer {
+            text-align: center;
+            margin-top: 70px;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            opacity: 0.6;
+        }
+
+        @media (max-width: 900px) {
+            .about-grid,
+            .feature-list {
+                grid-template-columns: 1fr;
+            }
+
+            .about-hero h1 {
+                font-size: 40px;
+            }
+
+            .about-page {
+                padding: 40px 5%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main class="about-page">
+
+        <section class="about-hero">
+            <div class="about-badge">ABOUT STUDY MATE</div>
+
+            <h1>
+                Learn smarter with
+                <span>Study Mate.</span>
+            </h1>
+
+            <p>
+                Study Mate is an AI-powered study companion designed to make
+                learning simpler, more organized, and more effective.
+                Instead of wasting time searching for explanations or
+                planning what to study next, students can use Study Mate
+                to understand concepts, practice their knowledge, and
+                stay organized.
+            </p>
+        </section>
+
+
+        <section class="about-grid">
+
+            <div class="about-card">
+                <div class="about-card-icon">🧠</div>
+
+                <h3>Understand</h3>
+
+                <p>
+                    Get simple, student-friendly explanations for difficult
+                    topics and concepts.
+                </p>
+            </div>
+
+
+            <div class="about-card">
+                <div class="about-card-icon">🎯</div>
+
+                <h3>Practice</h3>
+
+                <p>
+                    Test your understanding with AI-generated quizzes
+                    and questions.
+                </p>
+            </div>
+
+
+            <div class="about-card">
+                <div class="about-card-icon">📅</div>
+
+                <h3>Organize</h3>
+
+                <p>
+                    Plan your study sessions and keep your learning
+                    schedule organized.
+                </p>
+            </div>
+
+        </section>
+
+
+        <section class="mission">
+
+            <h2>Our Mission</h2>
+
+            <p>
+                Studying should not be about memorizing everything at the
+                last minute. Study Mate aims to help students build a
+                better learning routine by combining AI assistance with
+                simple and practical study tools.
+            </p>
+
+            <p>
+                The goal is simple: make learning easier to understand,
+                easier to practice, and easier to manage.
+            </p>
+
+        </section>
+
+
+        <section>
+
+            <h2 class="features-title">What Study Mate Offers</h2>
+
+            <div class="feature-list">
+
+                <div class="feature">
+                    <strong>AI Explanations</strong>
+
+                    <p>
+                        Ask about a topic and receive an explanation
+                        designed to be easy to understand.
+                    </p>
+                </div>
+
+
+                <div class="feature">
+                    <strong>AI Quizzes</strong>
+
+                    <p>
+                        Practice what you have learned with questions
+                        generated around your topic.
+                    </p>
+                </div>
+
+
+                <div class="feature">
+                    <strong>Study Schedule</strong>
+
+                    <p>
+                        Organize your study time and create a consistent
+                        learning routine.
+                    </p>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <footer class="about-footer">
+            <p>Study Mate — Your AI-powered study companion.</p>
+        </footer>
+
+    </main>
+
+</body>
+</html>

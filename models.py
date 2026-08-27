@@ -1,5 +1,6 @@
-from sqlalchemy import Column, Integer, String, ForeignKey, Text
+from sqlalchemy import Boolean, Column, DateTime, Integer, String, ForeignKey, Text
 from db import Base, Engine
+from datetime import datetime
 
 class User(Base):
     __tablename__ = "users"
@@ -47,6 +48,37 @@ class Explanation(Base):
     Subject = Column(String(100), nullable=False)
     Questions = Column(Text, nullable=False)
     Explanation = Column(Text, nullable=False)
+
+
+
+
+
+class Task(Base):
+    __tablename__ = "tasks"
+
+    id = Column(Integer, primary_key=True, index=True)
+
+    user_id = Column(
+        Integer,
+        ForeignKey("users.id"),
+        nullable=False,
+        index=True
+    )
+
+    title = Column(String(200), nullable=False)
+
+    description = Column(Text, nullable=True)
+
+    subject = Column(String(100), nullable=False)
+
+    due_date = Column(DateTime, nullable=True)
+
+    completed = Column(Boolean, default=False)
+
+    created_at = Column(
+        DateTime,
+        default=datetime.utcnow
+    )
 
 
 Base.metadata.create_all(bind=Engine)
